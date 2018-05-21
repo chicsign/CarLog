@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.carlog.chicsign.carlog.IntroActivity">
+    tools:context="com.carlog.chicsign.carlog.Activities.IntroActivity">
 
     <TextView
         android:layout_marginTop="40dp"

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CarLog</string>
+    <string name="input_list">내역</string>
+    <string name="input_liter">주유량(L)</string>
+    <string name="input_OilPrice">주유비</string>
+    <string name="input_add">추가</string>
 </resources>

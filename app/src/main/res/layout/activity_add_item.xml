@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_intro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.carlog.chicsign.carlog.Activities.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/input_OilPrice"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/oil_price"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:inputType="number"
+        android:maxLines="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/input_liter"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/oil_liter"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:inputType="number"
+        android:maxLines="1" />
+
+    <Button
+        android:id="@+id/dismissBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/input_add"
+        android:textSize="30dp" />
+
+</LinearLayout>

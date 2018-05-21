@@ -5,14 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.carlog.chicsign.carlog.MainActivity">
+    tools:context="com.carlog.chicsign.carlog.Activities.MainActivity">
 
-
-    <ListView
-        android:id="@+id/car_listView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="singleChoice"
-        android:divider="#ffcc22"
-        android:dividerHeight="1.5dp" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/input_list"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/input_add"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/colorAccent"
+                android:textSize="50dp" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"></ListView>
+    </LinearLayout>
+
+
 </LinearLayout>
