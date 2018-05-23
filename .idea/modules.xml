@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CarLog.iml" filepath="$PROJECT_DIR$/CarLog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CarLog.iml" filepath="$PROJECT_DIR$/.idea/CarLog.iml" />
+      <module fileurl="file://C:\Project\CarLog\CarLog\CarLog.iml" filepath="C:\Project\CarLog\CarLog\CarLog.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Project\CarLog\CarLog\app\app.iml" filepath="C:\Project\CarLog\CarLog\app\app.iml" />
     </modules>
   </component>
 </project>
