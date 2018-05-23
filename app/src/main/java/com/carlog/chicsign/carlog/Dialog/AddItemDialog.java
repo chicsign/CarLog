@@ -35,7 +35,7 @@ public class AddItemDialog extends Dialog {
     public void onCreate(Bundle $savedInstanceState) {
         super.onCreate($savedInstanceState);
         setContentView(R.layout.activity_add_item);
-        setTitle("Enter Your Name");
+        setTitle("이용 내역");
 
         _price = (EditText) findViewById(R.id.oil_price);
         _liter = (EditText) findViewById(R.id.oil_liter);
