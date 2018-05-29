@@ -20,9 +20,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
-                android:layout_gravity="center"
                 android:text="@string/input_list"
                 android:textSize="30dp" />
 
@@ -38,11 +38,18 @@
                 android:textSize="50dp" />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listView"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"></ListView>
+            android:clipToPadding="false"
+            android:elevation="0dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:paddingBottom="17dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="17dp"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 
