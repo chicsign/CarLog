@@ -44,6 +44,7 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
     private ArrayList<FolderScrapModel> mEditList = new ArrayList<>();
     private Model scrapModel;
     private ScrapDB scrapDB = null;
+    SwipeController swipeController = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,80 +61,29 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
 
         mEditModeAdapter = new ViewModeAdapter(mContext, mEditList, R.layout.card_item);
         mRecyclerView.setAdapter(mEditModeAdapter);
-        setItemTouchHelper();
+        swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+                mEditModeAdapter.remove(position);
+                mEditModeAdapter.notifyItemRemoved(position);
+                mEditModeAdapter.notifyItemRangeChanged(position, mEditModeAdapter.getItemCount());
+            }
+        });
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+        itemTouchhelper.attachToRecyclerView(mRecyclerView);
+
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
+
+
         TextView addBtn = (TextView) findViewById(R.id.input_add);
         addBtn.setOnClickListener(this);
 
-    }
-
-    private void setItemTouchHelper() {
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            // ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP
-            // 하면 상하좌우 다 움직임
-
-            Drawable background, mark;
-            int markMargin;
-
-            // 드래그 할 때 호출
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            // 제공된 ViewHolder 의 Swipe 방향을 반환
-            @Override
-            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                return super.getSwipeDirs(recyclerView, viewHolder);
-            }
-
-            // 사용자가 Swipe 할 때 호출
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                int swipedPosition = viewHolder.getAdapterPosition();
-                ViewModeAdapter adapter = (ViewModeAdapter) mRecyclerView.getAdapter();
-                adapter.remove(swipedPosition);
-            }
-
-            // RecyclerView 의 onDraw 호출
-            @Override
-            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                View itemView = viewHolder.itemView;
-
-                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-                    mark = ContextCompat.getDrawable(mContext, R.drawable.ic_remove_24dp);
-                    mark.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-                    markMargin = (int) mContext.getResources().getDimension(R.dimen.ic_remove_margin);
-
-                    // Item 을 좌측으로 Swipe 했을 때 Background 변화: ItemTouchHelper.LEFT
-                    if (dX < 1) {
-                        background = new ColorDrawable(Color.parseColor("#FFD32F2F"));
-                        background.setBounds(itemView.getRight() + (int) dX, itemView.getTop(), itemView.getRight(), itemView.getBottom());
-                        //dX(dY): 사용자 동작에 의한 수평(수직) 변화의 양
-                        background.draw(c); //Bounds: 범위. draw: 그리기. - 사용자 동작에 따라 Item 의 Background 변화
-
-                        // Mark 그리기
-                        int itemHeight = itemView.getBottom() - itemView.getTop(); // Item 높이
-                        int markWidth = mark.getIntrinsicWidth(); // Intrinsic: 본질적 - xMark 의 실제 길이
-                        int markHeight = mark.getIntrinsicHeight();
-
-                        int markLeft = itemView.getRight() - markMargin - markWidth;
-                        int markRight = itemView.getRight() - markMargin;
-                        int markTop = itemView.getTop() + (itemHeight - markHeight) / 2;
-                        int markBottom = markTop + markHeight;
-                        mark.setBounds(markLeft, markTop, markRight, markBottom);
-                        mark.draw(c);
-                    }/* else { // ItemTouchHelper.RIGHT
-                        background = new ColorDrawable(Color.parseColor("#FF388E3C"));
-                        background.setBounds(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + (int) dX, itemView.getBottom());
-                        background.draw(c);
-                    }*/
-                }
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            }
-
-        };
-        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     public class ViewModeAdapter extends RecyclerView.Adapter<ViewModeAdapter.ViewModeHolder> {
