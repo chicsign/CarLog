@@ -4,4 +4,5 @@
     <string name="input_liter">주유량(L)</string>
     <string name="input_OilPrice">주유비</string>
     <string name="input_add">추가</string>
+    <string name="input_edit">수정</string>
 </resources>

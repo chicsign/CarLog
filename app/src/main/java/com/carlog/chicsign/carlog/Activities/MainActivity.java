@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.carlog.chicsign.carlog.Database.ScrapDB;
 import com.carlog.chicsign.carlog.Dialog.AddItemDialog;
+import com.carlog.chicsign.carlog.Dialog.EditItemDialog;
 import com.carlog.chicsign.carlog.Interface.FolderScrapModel;
 import com.carlog.chicsign.carlog.R;
 import com.carlog.chicsign.carlog.model.Model;
@@ -64,7 +65,7 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
         swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
             public void onRightClicked(int position) {
-                mEditModeAdapter.remove(position);
+                mEditModeAdapter.update(position);
                 mEditModeAdapter.notifyItemRemoved(position);
                 mEditModeAdapter.notifyItemRangeChanged(position, mEditModeAdapter.getItemCount());
             }
@@ -142,6 +143,11 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
             ScrapDB.getScrapDB(mContext).scrap_delete((Model) mEditList.get(position));
             mEditModeAdapter.updateAdapter(getDBInfo());
             Toast.makeText(mContext,"삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+        }
+
+        public void update(int position){
+            EditItemDialog editDl = new EditItemDialog(MainActivity.this);
+            editDl.show();
         }
 
         public class ViewModeHolder extends RecyclerView.ViewHolder {
