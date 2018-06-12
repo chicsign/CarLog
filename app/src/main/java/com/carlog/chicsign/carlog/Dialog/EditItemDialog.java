@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import com.carlog.chicsign.carlog.R;
 
+import java.util.HashMap;
+
 /**
  * Created by Chicsign on 2018-05-21.
  */
@@ -19,8 +21,10 @@ public class EditItemDialog extends Dialog {
     private EditText _liter;
     private OnDismissListener _listener;
     private Context cxt;
+    private Runnable mRunnable;
+    private HashMap<String, Object> bundles;
 
-    public EditItemDialog(Context context) {
+    public EditItemDialog(Context context, HashMap<String, Object> bundle) {
         super(context);
         cxt = context;
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
@@ -28,7 +32,7 @@ public class EditItemDialog extends Dialog {
         lpWindow.dimAmount = 0.8f;
         getWindow().setAttributes(lpWindow);
 
-
+        bundles = bundle;
     }
 
     @Override
@@ -40,19 +44,23 @@ public class EditItemDialog extends Dialog {
         _price = (EditText) findViewById(R.id.edit_oil_price);
         _liter = (EditText) findViewById(R.id.edit_oil_liter);
         Button btn = (Button) findViewById(R.id.edit_dismissBtn);
-
+        setData(bundles);
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if (_listener == null) {
-                } else {
-                    _listener.onDismiss(EditItemDialog.this);
-                }
-                dismiss();
+                    Runnable run = mRunnable;
+                    dismiss();
+                    run.run();
             }
         });
+    }
+
+    public void setData(HashMap<String, Object> bundles) {
+        if (bundles.containsKey("run")) {
+            mRunnable = (Runnable) bundles.get("run");
+        }
     }
 
     public String getPrice() {

@@ -4,16 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +24,8 @@ import com.carlog.chicsign.carlog.R;
 import com.carlog.chicsign.carlog.model.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Chicsign on 2018-05-19.
@@ -45,7 +41,6 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
     private ArrayList<FolderScrapModel> mEditList = new ArrayList<>();
     private Model scrapModel;
     private ScrapDB scrapDB = null;
-    SwipeController swipeController = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,29 +57,45 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
 
         mEditModeAdapter = new ViewModeAdapter(mContext, mEditList, R.layout.card_item);
         mRecyclerView.setAdapter(mEditModeAdapter);
-        swipeController = new SwipeController(new SwipeControllerActions() {
-            @Override
-            public void onRightClicked(int position) {
-                mEditModeAdapter.update(position);
-                mEditModeAdapter.notifyItemRemoved(position);
-                mEditModeAdapter.notifyItemRangeChanged(position, mEditModeAdapter.getItemCount());
-            }
-        });
-
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-        itemTouchhelper.attachToRecyclerView(mRecyclerView);
-
-        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
-
-
+        setItemTouchHelper();
         TextView addBtn = (TextView) findViewById(R.id.input_add);
         addBtn.setOnClickListener(this);
 
+    }
+
+    private void setItemTouchHelper() {
+        SwipeHelper swipeHelper = new SwipeHelper(this, mRecyclerView) {
+            @Override
+            public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
+                underlayButtons.add(new SwipeHelper.UnderlayButton(
+                        "Delete",
+                        0,
+                        Color.parseColor("#FF3C30"),
+                        new SwipeHelper.UnderlayButtonClickListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                // TODO: onDelete
+                                ViewModeAdapter adapter = (ViewModeAdapter) mRecyclerView.getAdapter();
+                                adapter.remove(pos);
+                            }
+                        }
+                ));
+
+                underlayButtons.add(new SwipeHelper.UnderlayButton(
+                        "Edit",
+                        0,
+                        Color.parseColor("#FF9502"),
+                        new SwipeHelper.UnderlayButtonClickListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                // TODO: OnTransfer
+                                ViewModeAdapter adapter = (ViewModeAdapter) mRecyclerView.getAdapter();
+                                adapter.update(pos);
+                            }
+                        }
+                ));
+            }
+        };
     }
 
     public class ViewModeAdapter extends RecyclerView.Adapter<ViewModeAdapter.ViewModeHolder> {
@@ -144,9 +155,18 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
             mEditModeAdapter.updateAdapter(getDBInfo());
             Toast.makeText(mContext,"삭제 되었습니다.", Toast.LENGTH_SHORT).show();
         }
+        public void update(int position) {
 
-        public void update(int position){
-            EditItemDialog editDl = new EditItemDialog(MainActivity.this);
+            HashMap<String, Object> bundle = new HashMap<String, Object>();
+            bundle.put("run", new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(mContext,"수정 완료.", Toast.LENGTH_SHORT).show();
+                    mEditModeAdapter.updateAdapter(getDBInfo());
+                }
+            });
+
+            EditItemDialog editDl = new EditItemDialog(MainActivity.this, bundle);
             editDl.show();
         }
 
