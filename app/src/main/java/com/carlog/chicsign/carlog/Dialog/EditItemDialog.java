@@ -8,8 +8,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.carlog.chicsign.carlog.Database.ScrapDB;
+import com.carlog.chicsign.carlog.Interface.FolderScrapModel;
 import com.carlog.chicsign.carlog.R;
+import com.carlog.chicsign.carlog.model.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -22,7 +26,10 @@ public class EditItemDialog extends Dialog {
     private OnDismissListener _listener;
     private Context cxt;
     private Runnable mRunnable;
+    private int position;
     private HashMap<String, Object> bundles;
+    private ScrapDB scrapDB = null;
+    private ArrayList<FolderScrapModel> mEditList = new ArrayList<>();
 
     public EditItemDialog(Context context, HashMap<String, Object> bundle) {
         super(context);
@@ -40,26 +47,44 @@ public class EditItemDialog extends Dialog {
         super.onCreate($savedInstanceState);
         setContentView(R.layout.activity_edit_item);
         setTitle("이용 내역");
-
+        getDBInfo();
         _price = (EditText) findViewById(R.id.edit_oil_price);
         _liter = (EditText) findViewById(R.id.edit_oil_liter);
         Button btn = (Button) findViewById(R.id.edit_dismissBtn);
         setData(bundles);
+        Model scrapModel = (Model) mEditList.get(position);
+        scrapDB.scrap_insert(scrapModel);
+        _price.setText(scrapModel.getPrice());
+        _liter.setText(scrapModel.getLiter());
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                    Runnable run = mRunnable;
-                    dismiss();
-                    run.run();
+                Runnable run = mRunnable;
+                dismiss();
+                Model scrapModel = (Model) mEditList.get(position);
+                scrapModel.setPrice(scrapModel.getPrice());
+                scrapModel.setLiter(scrapModel.getLiter());
+                scrapDB.scrap_update(scrapModel);
+                run.run();
             }
         });
+    }
+
+    private ArrayList<FolderScrapModel> getDBInfo() {
+        scrapDB = ScrapDB.getScrapDB(cxt);
+        Model scrapModel = new Model();
+        mEditList = new ArrayList<>();
+        mEditList.addAll(scrapDB.scrap_select(scrapModel));
+
+        return mEditList;
     }
 
     public void setData(HashMap<String, Object> bundles) {
         if (bundles.containsKey("run")) {
             mRunnable = (Runnable) bundles.get("run");
+            position = (int) bundles.get("position");
         }
     }
 

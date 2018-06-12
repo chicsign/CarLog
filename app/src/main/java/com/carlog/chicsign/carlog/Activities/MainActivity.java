@@ -57,6 +57,7 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
 
         mEditModeAdapter = new ViewModeAdapter(mContext, mEditList, R.layout.card_item);
         mRecyclerView.setAdapter(mEditModeAdapter);
+
         setItemTouchHelper();
         TextView addBtn = (TextView) findViewById(R.id.input_add);
         addBtn.setOnClickListener(this);
@@ -158,11 +159,12 @@ public class MainActivity extends Activity implements DialogInterface.OnDismissL
         public void update(int position) {
 
             HashMap<String, Object> bundle = new HashMap<String, Object>();
+            bundle.put("position",position);
             bundle.put("run", new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(mContext,"수정 완료.", Toast.LENGTH_SHORT).show();
                     mEditModeAdapter.updateAdapter(getDBInfo());
+                    Toast.makeText(mContext,"수정 완료.", Toast.LENGTH_SHORT).show();
                 }
             });
 
