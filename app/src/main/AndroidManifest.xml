@@ -11,11 +11,13 @@
         <activity android:name=".Activities.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.MainActivity"></activity>
+        <activity android:name=".Activities.CarLogActivity"></activity>
+        <activity android:name=".Activities.AddCarInfoActivity"></activity>
+        <activity android:name=".Activities.InitialActivity"></activity>
     </application>
 
 </manifest>

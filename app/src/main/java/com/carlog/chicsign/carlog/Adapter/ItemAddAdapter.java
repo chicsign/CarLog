@@ -1,7 +1,6 @@
 package com.carlog.chicsign.carlog.Adapter;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,6 @@ import com.carlog.chicsign.carlog.model.Model;
 
 import java.util.List;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static android.content.Context.VIBRATOR_SERVICE;
-
 /**
  * Created by Chicsign on 2018-05-21.
  */
@@ -25,7 +21,7 @@ public class ItemAddAdapter extends ArrayAdapter<Model> {
     private final Activity context;
 
     public ItemAddAdapter(Activity context, List<Model> list) {
-        super(context, R.layout.card_item, list);
+        super(context, R.layout.carlog_list_item, list);
         this.context = context;
         this.list = list;
     }
@@ -46,7 +42,7 @@ public class ItemAddAdapter extends ArrayAdapter<Model> {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             LayoutInflater inflator = context.getLayoutInflater();
-            convertView = inflator.inflate(R.layout.card_item, null);
+            convertView = inflator.inflate(R.layout.carlog_list_item, null);
             viewHolder = new ViewHolder();
             viewHolder.price = (TextView) convertView.findViewById(R.id.tv_price);
             viewHolder.liter = (TextView) convertView.findViewById(R.id.tv_liter);
