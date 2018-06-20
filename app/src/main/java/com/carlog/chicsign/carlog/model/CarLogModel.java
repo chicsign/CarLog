@@ -1,14 +1,14 @@
 package com.carlog.chicsign.carlog.model;
 
-import com.carlog.chicsign.carlog.Interface.FolderScrapModel;
+import com.carlog.chicsign.carlog.Interface.ICarLog;
 
-public class Model implements FolderScrapModel {
+public class CarLogModel implements ICarLog {
 
 	private int scrapSeq;           // 스크랩 순번
 	private String price;
 	private String liter;
 
-	public Model() {
+	public CarLogModel() {
 		this.scrapSeq = 0;
 		this.price = "";
 		this.liter = "";
@@ -16,12 +16,12 @@ public class Model implements FolderScrapModel {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 
-		Model model = new Model();
-		model.setScrapSeq(scrapSeq);
-		model.setLiter(liter);
-		model.setPrice(price);
+		CarLogModel carLogModel = new CarLogModel();
+		carLogModel.setScrapSeq(scrapSeq);
+		carLogModel.setLiter(liter);
+		carLogModel.setPrice(price);
 
-		return model;
+		return carLogModel;
 	}
 	public void setScrapSeq(int scrapSeq) {
 		this.scrapSeq = scrapSeq;

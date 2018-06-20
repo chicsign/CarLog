@@ -11,13 +11,22 @@
         <activity android:name=".Activities.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity"></activity>
-        <activity android:name=".Activities.CarLogActivity"></activity>
-        <activity android:name=".Activities.AddCarInfoActivity"></activity>
-        <activity android:name=".Activities.InitialActivity"></activity>
+        <activity
+            android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CarLogActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AddCarInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.InitialActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

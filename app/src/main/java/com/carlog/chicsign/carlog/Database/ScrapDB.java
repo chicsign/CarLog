@@ -3,7 +3,7 @@ package com.carlog.chicsign.carlog.Database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.carlog.chicsign.carlog.model.Model;
+import com.carlog.chicsign.carlog.model.CarLogModel;
 
 import java.util.ArrayList;
 
@@ -28,34 +28,34 @@ public class ScrapDB {
         return scrapDB;
     }
 
-    public ArrayList<Model> scrap_select(Model scrapModel){
+    public ArrayList<CarLogModel> scrap_select(CarLogModel scrapCarLogModel){
 
         database = dbHelper.getReadableDatabase(database);
-        ArrayList<Model> list = ScrapQuery.scrap_select(database, scrapModel);
+        ArrayList<CarLogModel> list = ScrapQuery.scrap_select(database, scrapCarLogModel);
         database.close();
         return list;
     }
 
-    public Model scrap_insert(Model model){
+    public CarLogModel scrap_insert(CarLogModel carLogModel){
 
         database = dbHelper.getWritableDatabase(database);
-        model = ScrapQuery.scrap_insert(database, model);
+        carLogModel = ScrapQuery.scrap_insert(database, carLogModel);
         database.close();
 
-        return model;
+        return carLogModel;
     }
 
-    public void scrap_update(Model model){
+    public void scrap_update(CarLogModel carLogModel){
 
         database = dbHelper.getWritableDatabase(database);
-        ScrapQuery.scrap_update(database, model);
+        ScrapQuery.scrap_update(database, carLogModel);
         database.close();
     }
 
-    public void scrap_delete(Model model){
+    public void scrap_delete(CarLogModel carLogModel){
 
         database = dbHelper.getWritableDatabase(database);
-        ScrapQuery.scrap_delete(database, model);
+        ScrapQuery.scrap_delete(database, carLogModel);
         database.close();
 
     }

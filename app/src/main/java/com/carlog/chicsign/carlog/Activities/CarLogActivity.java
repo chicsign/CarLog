@@ -19,9 +19,9 @@ import android.widget.Toast;
 import com.carlog.chicsign.carlog.Database.ScrapDB;
 import com.carlog.chicsign.carlog.Dialog.AddItemDialog;
 import com.carlog.chicsign.carlog.Dialog.EditItemDialog;
-import com.carlog.chicsign.carlog.Interface.FolderScrapModel;
+import com.carlog.chicsign.carlog.Interface.ICarLog;
 import com.carlog.chicsign.carlog.R;
-import com.carlog.chicsign.carlog.model.Model;
+import com.carlog.chicsign.carlog.model.CarLogModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,8 +38,8 @@ public class CarLogActivity extends Activity implements DialogInterface.OnDismis
     private GridLayoutManager mGridLayoutManager;
     private ViewModeAdapter mEditModeAdapter;
     private LayoutInflater mInflater;
-    private ArrayList<FolderScrapModel> mEditList = new ArrayList<>();
-    private Model scrapModel;
+    private ArrayList<ICarLog> mEditList = new ArrayList<>();
+    private CarLogModel scrapCarLogModel;
     private ScrapDB scrapDB = null;
 
     @Override
@@ -101,10 +101,10 @@ public class CarLogActivity extends Activity implements DialogInterface.OnDismis
 
     public class ViewModeAdapter extends RecyclerView.Adapter<ViewModeAdapter.ViewModeHolder> {
         Context mContext;
-        ArrayList<FolderScrapModel> mEditList;
+        ArrayList<ICarLog> mEditList;
         int mLayout;
 
-        public ViewModeAdapter(Context _context, ArrayList<FolderScrapModel> _editList, int _layout) {
+        public ViewModeAdapter(Context _context, ArrayList<ICarLog> _editList, int _layout) {
             this.mContext = _context;
             this.mEditList = _editList;
             this.mLayout = _layout;
@@ -132,7 +132,7 @@ public class CarLogActivity extends Activity implements DialogInterface.OnDismis
                 }
             });
 
-            final Model sm = (Model) mEditList.get(position);
+            final CarLogModel sm = (CarLogModel) mEditList.get(position);
             price = sm.getPrice();
             liter = sm.getLiter();
             holder.mLinItem.setTag(sm);
@@ -146,13 +146,13 @@ public class CarLogActivity extends Activity implements DialogInterface.OnDismis
             return mEditList.size();
         }
 
-        public void updateAdapter(ArrayList<FolderScrapModel> _updateList) {
+        public void updateAdapter(ArrayList<ICarLog> _updateList) {
             this.mEditList = _updateList;
             this.notifyDataSetChanged();
         }
 
         public void remove(int position) {
-            ScrapDB.getScrapDB(mContext).scrap_delete((Model) mEditList.get(position));
+            ScrapDB.getScrapDB(mContext).scrap_delete((CarLogModel) mEditList.get(position));
             mEditModeAdapter.updateAdapter(getDBInfo());
             Toast.makeText(mContext,"삭제 되었습니다.", Toast.LENGTH_SHORT).show();
         }
@@ -188,13 +188,13 @@ public class CarLogActivity extends Activity implements DialogInterface.OnDismis
         }
     }
 
-    private ArrayList<FolderScrapModel> getDBInfo() {
+    private ArrayList<ICarLog> getDBInfo() {
 
         scrapDB = ScrapDB.getScrapDB(mContext);
-        scrapModel = new Model();
+        scrapCarLogModel = new CarLogModel();
         mEditList = new ArrayList<>();
 
-        mEditList.addAll(scrapDB.scrap_select(scrapModel));
+        mEditList.addAll(scrapDB.scrap_select(scrapCarLogModel));
 
         return mEditList;
     }
@@ -204,9 +204,9 @@ public class CarLogActivity extends Activity implements DialogInterface.OnDismis
         AddItemDialog dialog = (AddItemDialog) dialogInterface;
         String price = dialog.getPrice();
         String liter = dialog.getLiter();
-        scrapModel.setPrice(price);
-        scrapModel.setLiter(liter);
-        scrapDB.scrap_insert(scrapModel);
+        scrapCarLogModel.setPrice(price);
+        scrapCarLogModel.setLiter(liter);
+        scrapDB.scrap_insert(scrapCarLogModel);
         mEditModeAdapter.updateAdapter(getDBInfo());
     }
 

@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.carlog.chicsign.carlog.Database.ScrapDB;
-import com.carlog.chicsign.carlog.Interface.FolderScrapModel;
+import com.carlog.chicsign.carlog.Interface.ICarLog;
 import com.carlog.chicsign.carlog.R;
-import com.carlog.chicsign.carlog.model.Model;
+import com.carlog.chicsign.carlog.model.CarLogModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class EditItemDialog extends Dialog {
     private int position;
     private HashMap<String, Object> bundles;
     private ScrapDB scrapDB = null;
-    private ArrayList<FolderScrapModel> mEditList = new ArrayList<>();
+    private ArrayList<ICarLog> mEditList = new ArrayList<>();
 
     public EditItemDialog(Context context, HashMap<String, Object> bundle) {
         super(context);
@@ -52,10 +52,10 @@ public class EditItemDialog extends Dialog {
         _liter = (EditText) findViewById(R.id.edit_oil_liter);
         Button btn = (Button) findViewById(R.id.edit_dismissBtn);
         setData(bundles);
-        Model scrapModel = (Model) mEditList.get(position);
-        scrapDB.scrap_insert(scrapModel);
-        _price.setText(scrapModel.getPrice());
-        _liter.setText(scrapModel.getLiter());
+        CarLogModel scrapCarLogModel = (CarLogModel) mEditList.get(position);
+        scrapDB.scrap_insert(scrapCarLogModel);
+        _price.setText(scrapCarLogModel.getPrice());
+        _liter.setText(scrapCarLogModel.getLiter());
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -63,20 +63,20 @@ public class EditItemDialog extends Dialog {
                 // TODO Auto-generated method stub
                 Runnable run = mRunnable;
                 dismiss();
-                Model scrapModel = (Model) mEditList.get(position);
-                scrapModel.setPrice(scrapModel.getPrice());
-                scrapModel.setLiter(scrapModel.getLiter());
-                scrapDB.scrap_update(scrapModel);
+                CarLogModel scrapCarLogModel = (CarLogModel) mEditList.get(position);
+                scrapCarLogModel.setPrice(scrapCarLogModel.getPrice());
+                scrapCarLogModel.setLiter(scrapCarLogModel.getLiter());
+                scrapDB.scrap_update(scrapCarLogModel);
                 run.run();
             }
         });
     }
 
-    private ArrayList<FolderScrapModel> getDBInfo() {
+    private ArrayList<ICarLog> getDBInfo() {
         scrapDB = ScrapDB.getScrapDB(cxt);
-        Model scrapModel = new Model();
+        CarLogModel scrapCarLogModel = new CarLogModel();
         mEditList = new ArrayList<>();
-        mEditList.addAll(scrapDB.scrap_select(scrapModel));
+        mEditList.addAll(scrapDB.scrap_select(scrapCarLogModel));
 
         return mEditList;
     }

@@ -21,17 +21,23 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_add_carinfo" />
+                android:background="@drawable/ic_btn_add_carinfo" />
 
             <TextView
+                style="@style/t_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="@string/addcar_title"
-                android:textSize="30dp" />
+                android:text="@string/addcar_title"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/img_content_div_line" />
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -51,8 +57,12 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="39dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="68dp"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -62,8 +72,12 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="39dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="68dp"
+                    android:textSize="15dp" />
 
 
                 <TextView
@@ -74,8 +88,12 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="39dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="68dp"
+                    android:textSize="15dp" />
 
 
                 <TextView
@@ -86,17 +104,25 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp" />
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="39dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="68dp"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/btn_addcarinfo"
-                    android:layout_width="80dp"
+                    android:layout_width="180dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="80dp"
-                    android:background="@drawable/ic_btn_add_carinfo" />
+                    android:text="등록하기"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:background="#e4aabc"/>
 
             </LinearLayout>
         </ScrollView>

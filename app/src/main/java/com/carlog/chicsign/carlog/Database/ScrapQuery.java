@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.carlog.chicsign.carlog.model.Model;
+import com.carlog.chicsign.carlog.model.CarLogModel;
 
 import java.util.ArrayList;
 
@@ -30,45 +30,45 @@ public class ScrapQuery {
     public static final String SQL_DROP_TBL = "DROP TABLE IF EXISTS " + tableName;
 
     // 스크랩 조회
-    public static ArrayList<Model> scrap_select(SQLiteDatabase database, Model model) {
+    public static ArrayList<CarLogModel> scrap_select(SQLiteDatabase database, CarLogModel carLogModel) {
 
         final String SQL_SELECT = "select * from " + tableName;
 
-        Model scrapModel = null;
-        ArrayList<Model> list = new ArrayList<Model>();
+        CarLogModel scrapCarLogModel = null;
+        ArrayList<CarLogModel> list = new ArrayList<CarLogModel>();
         Cursor cursor = database.rawQuery(SQL_SELECT, null);
         while (cursor.moveToNext()) {
-            scrapModel = new Model();
-            scrapModel.setScrapSeq(cursor.getInt(cursor.getColumnIndexOrThrow(scrapSeq)));
-            scrapModel.setPrice(cursor.getString(cursor.getColumnIndexOrThrow(scrapPrice)));
-            scrapModel.setLiter(cursor.getString(cursor.getColumnIndexOrThrow(scrapLiter)));
+            scrapCarLogModel = new CarLogModel();
+            scrapCarLogModel.setScrapSeq(cursor.getInt(cursor.getColumnIndexOrThrow(scrapSeq)));
+            scrapCarLogModel.setPrice(cursor.getString(cursor.getColumnIndexOrThrow(scrapPrice)));
+            scrapCarLogModel.setLiter(cursor.getString(cursor.getColumnIndexOrThrow(scrapLiter)));
 
-            list.add(scrapModel);
+            list.add(scrapCarLogModel);
         }
         return list;
     }
 
 
     // 스크랩 저장
-    public static Model scrap_insert(SQLiteDatabase database, final Model scrapModel) {
+    public static CarLogModel scrap_insert(SQLiteDatabase database, final CarLogModel scrapCarLogModel) {
         ContentValues values = new ContentValues();
-        values.put(ScrapQuery.scrapPrice, scrapModel.getPrice());
-        values.put(ScrapQuery.scrapLiter, scrapModel.getLiter());
-        scrapModel.setScrapSeq((int) database.insert(ScrapQuery.tableName, null, values));
-        return scrapModel;
+        values.put(ScrapQuery.scrapPrice, scrapCarLogModel.getPrice());
+        values.put(ScrapQuery.scrapLiter, scrapCarLogModel.getLiter());
+        scrapCarLogModel.setScrapSeq((int) database.insert(ScrapQuery.tableName, null, values));
+        return scrapCarLogModel;
     }
 
-    public static void scrap_update(SQLiteDatabase database, Model scrapModel) {
+    public static void scrap_update(SQLiteDatabase database, CarLogModel scrapCarLogModel) {
         ContentValues values = new ContentValues();
-        values.put(ScrapQuery.scrapPrice, scrapModel.getPrice());
-        values.put(ScrapQuery.scrapLiter, scrapModel.getLiter());
+        values.put(ScrapQuery.scrapPrice, scrapCarLogModel.getPrice());
+        values.put(ScrapQuery.scrapLiter, scrapCarLogModel.getLiter());
 
-        database.update(tableName, values, scrapSeq + " = ?", new String[]{String.valueOf(scrapModel.getScrapSeq())});
+        database.update(tableName, values, scrapSeq + " = ?", new String[]{String.valueOf(scrapCarLogModel.getScrapSeq())});
     }
 
 
-    public static void scrap_delete(SQLiteDatabase database, Model scrapModel) {
-        database.delete(tableName, scrapSeq + " = ?", new String[]{String.valueOf(scrapModel.getScrapSeq())});
+    public static void scrap_delete(SQLiteDatabase database, CarLogModel scrapCarLogModel) {
+        database.delete(tableName, scrapSeq + " = ?", new String[]{String.valueOf(scrapCarLogModel.getScrapSeq())});
 
     }
 

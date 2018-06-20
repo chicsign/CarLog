@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.carlog.chicsign.carlog.R;
-import com.carlog.chicsign.carlog.model.Model;
+import com.carlog.chicsign.carlog.model.CarLogModel;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ import java.util.List;
  * Created by Chicsign on 2018-05-21.
  */
 
-public class ItemAddAdapter extends ArrayAdapter<Model> {
-    private final List<Model> list;
+public class ItemAddAdapter extends ArrayAdapter<CarLogModel> {
+    private final List<CarLogModel> list;
     private final Activity context;
 
-    public ItemAddAdapter(Activity context, List<Model> list) {
+    public ItemAddAdapter(Activity context, List<CarLogModel> list) {
         super(context, R.layout.carlog_list_item, list);
         this.context = context;
         this.list = list;

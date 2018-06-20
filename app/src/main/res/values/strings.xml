@@ -1,9 +1,21 @@
 <resources>
     <string name="app_name">CarLog</string>
     <string name="addcar_title">차량 등록</string>
+    <string name="main_tab_day">일</string>
+    <string name="main_tab_month">월</string>
+    <string name="main_tab_year">연간</string>
     <string name="input_list">내역</string>
     <string name="input_liter">주유량(L)</string>
     <string name="input_OilPrice">주유비</string>
     <string name="input_add">추가</string>
     <string name="input_edit">수정</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
