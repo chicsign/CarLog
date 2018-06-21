@@ -13,50 +13,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            style="@style/t_filters"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/main_bg"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_carlog"
-                android:layout_width="match_parent"
-                android:layout_height="46dp">
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/carlog_day"
-                    style="@style/t_filters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_tab_day" />
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/carlog_month"
-                    style="@style/t_filters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_tab_month" />
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/carlog_year"
-                    style="@style/t_filters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_tab_year" />
-            </android.support.design.widget.TabLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/img_content_div_line" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-
+        <include layout="@layout/fragment_main" />
     </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
