@@ -22,7 +22,7 @@ public class AddCarInfoActivity extends Activity {
         btn_addcarinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddCarInfoActivity.this, MainActivity.class);
+                Intent intent = new Intent(AddCarInfoActivity.this, CalendarActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 finish();
