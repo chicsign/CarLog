@@ -28,9 +28,6 @@
             android:name=".Activities.InitialActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name=".Activities.CalendarActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
