@@ -32,7 +32,7 @@ public class TabFragment1 extends Fragment {
     private Calendar mCal;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
